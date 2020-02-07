@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', function(){
 	function hideTabContent(a){
 		for(let i=a; i< tabContent.length; i++){
 			tabContent[i].classList.remove('show');
-			tabContent[i].classList.remove('hide');
+			tabContent[i].classList.add('hide');
 		}
 	}
 	// скрываются все табы кроме первого
@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', function(){
 	function showTabContent(b){
 		if(tabContent[b].classList.contains('hide')){
 			tabContent[b].classList.remove('hide');
-			tabContent[b].classList.remove('show');
+			tabContent[b].classList.add('show');
 		}
 	}
 
