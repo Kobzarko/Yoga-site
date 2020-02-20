@@ -137,7 +137,7 @@ window.addEventListener('DOMContentLoaded', function(){
     // вызываем 
     setClock('timer', deadline);
 
-	// Modal window
+	// Modal window---------------------------------------------
 
 	 // our variables
 	let more = document.querySelector('.more'),
@@ -162,6 +162,76 @@ window.addEventListener('DOMContentLoaded', function(){
 	// if you want to cancel to scroll page add this code row
 	// document.body.style.overflow = 'hidden'; // stop scroll site page
 	// document.body.style.overflow = '';  // can scroll page
+
+    // Form
+
+    let message ={
+        loading: 'Загрузка...',
+        success: 'Спасибо! Скоро мы с Вами свяжемся!',
+        failure: 'Что-то пошло не так'
+    };
+
+    //form by create new element in the page
+    let form = document.querySelector('.main-form'),
+        input = form.getElementsByName('input'),
+        statusMessage = document.createElement('div');
+
+        statusMessage.classList.add('status'); // add class status to new element
+
+        // create event for our form when form will be submit
+        form.addEventListener('submit', function(event){
+            event.preventDefault(); // cancel standard load method
+            form.appenChild(statusMessage); // add new element in the end of parent
+
+            let request = new new XMLHttpRequest(); // create new request
+            request.open('POST', 'server.php');
+
+            // FORM DATA EXAMPLE
+            // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            
+            // JSON FORM EXAMPLE 
+            request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+            // get data in this item from user
+            let formData = new FormData(form);
+
+            // create object for JSON EXAMPLE
+            let obj ={};
+            formData.foreach(function(value, key){
+                obj[key] = value;
+            });
+
+            // parse in json type data 
+            let json = JSON.stringify(json);
+
+            request.send(json);
+
+            //request.send(formData);
+
+            // will react on our request
+            request.addEventListener('readystatechange', function(){
+
+                if(request.readyState<4){
+
+                    statusMessage.innerHTML = message.loading; // write loading 
+
+                } else if(request.readyState === 4 && request.status == 200){
+
+                    // here we write success or add some graphic change data from user here
+                    statusMessage.innerHTML = message.success; // 'Спасибо! Скоро мы с Вами свяжемся!'
+
+                } else{
+                    statusMessage.innerHTML = message.failure; // 'Что-то пошло не так'
+                }
+            });
+                // clean our form after request
+               for(let i=0; i< input.lentgh; i++){
+                input[i].value = '';
+               } 
+        });
+
+
+
 
 
 });
