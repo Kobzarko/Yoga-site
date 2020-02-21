@@ -163,7 +163,7 @@ window.addEventListener('DOMContentLoaded', function(){
 	// document.body.style.overflow = 'hidden'; // stop scroll site page
 	// document.body.style.overflow = '';  // can scroll page
 
-    // Form
+    // Form------------------------------------------------------------
 
     let message ={
         loading: 'Загрузка...',
@@ -173,7 +173,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
     //form by create new element in the page
     let form = document.querySelector('.main-form'),
-        input = form.getElementsByName('input'),
+        input = form.getElementsByTagName('input'),
         statusMessage = document.createElement('div');
 
         statusMessage.classList.add('status'); // add class status to new element
@@ -181,9 +181,9 @@ window.addEventListener('DOMContentLoaded', function(){
         // create event for our form when form will be submit
         form.addEventListener('submit', function(event){
             event.preventDefault(); // cancel standard load method
-            form.appenChild(statusMessage); // add new element in the end of parent
+            form.appendChild(statusMessage); // add new element in the end of parent
 
-            let request = new new XMLHttpRequest(); // create new request
+            let request = new XMLHttpRequest(); // create new request
             request.open('POST', 'server.php');
 
             // FORM DATA EXAMPLE
@@ -197,12 +197,12 @@ window.addEventListener('DOMContentLoaded', function(){
 
             // create object for JSON EXAMPLE
             let obj ={};
-            formData.foreach(function(value, key){
+            formData.forEach(function(value, key){
                 obj[key] = value;
             });
 
             // parse in json type data 
-            let json = JSON.stringify(json);
+            let json = JSON.stringify(obj);
 
             request.send(json);
 
